@@ -1,39 +1,28 @@
+import { MetadataRoute } from "next";
 import { getAllArticles } from "@/data/articles";
 
-export default function sitemap() {
+export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://chaintriggers.com";
 
   const articles = getAllArticles();
 
-  const articleUrls = articles.map((article) => ({
-    url: `${baseUrl}/${article.slug}`,
+  const articleUrls = articles.map((a) => ({
+    url: `${baseUrl}/${a.slug}`,
     lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.7,
   }));
 
-  const categories = Array.from(
-    new Set(
-      articles.map(
-        (a) => a.category || a.slug.split("-")[0]
-      )
-    )
+  // category’leri slug’dan türet (TS-safe)
+  const categorySet = new Set(
+    articles.map((a) => a.slug.split("-")[0])
   );
 
-  const categoryUrls = categories.map((cat) => ({
+  const categoryUrls = Array.from(categorySet).map((cat) => ({
     url: `${baseUrl}/category/${cat}`,
     lastModified: new Date(),
-    changeFrequency: "weekly",
-    priority: 0.6,
   }));
 
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
+    { url: baseUrl, lastModified: new Date() },
     ...categoryUrls,
     ...articleUrls,
   ];
