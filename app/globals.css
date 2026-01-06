@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
+/* ------------------------------
+   ROOT THEME VARIABLES
+--------------------------------*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0b1220;          /* deep editorial dark */
+  --background-soft: #0f172a;     /* card background */
+  --foreground: #e5e7eb;          /* primary text */
+  --foreground-muted: #9ca3af;    /* secondary text */
+
+  --accent: #22d3ee;              /* cyan premium accent */
+  --accent-soft: rgba(34, 211, 238, 0.15);
+
+  --border: #1f2937;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* ------------------------------
+   DARK MODE (DEFAULT)
+--------------------------------*/
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0b1220;
+    --background-soft: #0f172a;
+    --foreground: #e5e7eb;
+    --foreground-muted: #9ca3af;
+    --border: #1f2937;
   }
 }
 
+/* ------------------------------
+   BODY
+--------------------------------*/
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background: linear-gradient(
+    180deg,
+    #020617 0%,
+    #0b1220 40%,
+    #020617 100%
+  );
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  line-height: 1.75;
+}
+
+/* ------------------------------
+   LINKS
+--------------------------------*/
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------
+   PREMIUM CONTENT CARD
+--------------------------------*/
+.editorial-card {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+}
+
+/* ------------------------------
+   PROSE OVERRIDES (Markdown)
+--------------------------------*/
+.prose {
+  color: var(--foreground);
+}
+
+.prose p {
+  color: var(--foreground-muted);
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.prose h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose ul {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.prose li {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose strong {
+  color: #ffffff;
+}
+
+.prose a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.prose hr {
+  border-color: var(--border);
+  margin: 4rem 0;
+}
+
+/* ------------------------------
+   FOOTER / META TEXT
+--------------------------------*/
+.meta-text {
+  color: var(--foreground-muted);
+  font-size: 0.75rem;
 }
